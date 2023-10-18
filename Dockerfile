@@ -24,14 +24,14 @@ RUN a2enmod rewrite ssl && a2dissite 000-default default-ssl
 EXPOSE 80
 EXPOSE 443
 
-ENV SERVER_HOSTNAME
-ENV LDAP_URI
-ENV LDAP_BASE_DN
+ENV SERVER_HOSTNAME=""
+ENV LDAP_URI=""
+ENV LDAP_BASE_DN=dc=example,dc=com
 # ENV LDAP_REQUIRE_STARTTLS=true
-ENV LDAP_ADMINS_GROUP
-ENV LDAP_ADMIN_BIND_DN
-ENV LDAP_ADMIN_BIND_PWD
-# ENV LDAP_IGNORE_CERT_ERRORS
+ENV LDAP_ADMINS_GROUP=admins
+ENV LDAP_ADMIN_BIND_DN=cn=Manager,dc=example,dc=com
+ENV LDAP_ADMIN_BIND_PWD=admin
+# ENV LDAP_IGNORE_CERT_ERRORS=""
 
 COPY www/ /opt/ldap_user_manager
 RUN tar -xzf /tmp/v6.3.0.tar.gz -C /opt && mv /opt/PHPMailer-6.3.0 /opt/PHPMailer
