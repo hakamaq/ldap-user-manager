@@ -1,4 +1,7 @@
 FROM php:8-apache
+USER root
+RUN mkdir -p /opt/ssl
+RUN mkdir -p /opt/ldap_user_manager
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
@@ -20,6 +23,15 @@ RUN a2enmod rewrite ssl && a2dissite 000-default default-ssl
 
 EXPOSE 80
 EXPOSE 443
+
+ENV SERVER_HOSTNAME
+ENV LDAP_URI
+ENV LDAP_BASE_DN
+# ENV LDAP_REQUIRE_STARTTLS=true
+ENV LDAP_ADMINS_GROUP
+ENV LDAP_ADMIN_BIND_DN
+ENV LDAP_ADMIN_BIND_PWD
+# ENV LDAP_IGNORE_CERT_ERRORS
 
 COPY www/ /opt/ldap_user_manager
 RUN tar -xzf /tmp/v6.3.0.tar.gz -C /opt && mv /opt/PHPMailer-6.3.0 /opt/PHPMailer
